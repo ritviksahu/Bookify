@@ -43,7 +43,7 @@ regd_users.post("/login", (req,res) => {
         const token = jwt.sign({ username }, 'secret_key', { expiresIn: '1h' });
 
         // Send token as response
-        res.status(200).json({ message: 'Login successful', token });
+        res.status(200).json( 'Customer successfully logged in' );
     } else {
         res.status(401).json({ message: 'Invalid username or password' });
     }

@@ -21,7 +21,7 @@ public_users.post("/register", (req,res) => {
 
     // Register the new user
     users[username] = password;
-    res.status(201).json({ message: 'User registered successfully' });
+    res.status(201).json({ message: 'Customer successfully registered. Now you can login' });
 });
 
 
@@ -105,6 +105,7 @@ public_users.get('/author/:author',function (req, res) {
     getBookDetailsByAuthor(author)
         .then(bookDetails => {
             if (bookDetails.length > 0) {
+                
                 res.json(bookDetails);
             } else {
                 res.status(404).json({ message: 'Books not found for the author' });
@@ -124,7 +125,7 @@ function getBookDetailsByAuthor(author) {
             Keys.forEach((key) => {
                 const book = books[key];
                 if (book.author === author) {
-                booksByAuthor.push(book.title);
+                booksByAuthor.push(book);
                 }
                 });
             resolve(booksByAuthor);
@@ -200,8 +201,8 @@ function getBookDetailsByTitle(title) {
 public_users.get('/review/:isbn',function (req, res) {
     const isbn = req.params.isbn;
     if (books.hasOwnProperty(isbn)) {
-        const reviews = books[isbn].reviews;
-        res.status(200).json({ isbn, reviews });
+        
+        res.status(200).json( books[isbn].reviews );
     } else {
         res.status(404).json({ message: 'No reviews found for the book with ISBN ' + isbn });
     }
